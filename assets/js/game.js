@@ -102,6 +102,13 @@ for (var i = 0; i < enemyNames.length; i++) {
     enemyHealth = 50
     //debugger;
     fight(pickedEnemyName);
+
+    if (playerHealth > 0 && i < enemyNames.length - 1) {
+      var storeConfirm = window.confirm("The fight is over. Visit the store before the next round?")
+      if (storeConfirm) {
+      shop();
+      }
+    }
 } else {
   window.alert("You have lost your robot in battle. Game Over!");
   break;
@@ -122,6 +129,47 @@ var endGame = function() {
     startGame();
   } else {
     window.alert("Thank you for playing Robot Galdiators. Come back soon.");
+  }
+
+};
+
+var shop = function() {
+  var shopOptionPrompt = window.prompt ("Would you like to REFILL your health, UPGRADE your attacks or LEAVE the shop? Please enter REFILL, UPGRADE or LEAVE.");
+  switch (shopOptionPrompt) {
+    case "REFILL":
+    case "refill":
+      if (playerMoney >= 7) {
+      window.alert("Refilling " + playerName + "'s health by 20 points for 7 dollars.");
+
+      playerHealth = playerHealth + 20;
+      playerMoney = playerMoney - 7;
+      console.log("You now have " + playerMoney + " dollars and " + playerHealth + " health.");
+      }
+      else {
+        window.alert("You don't have enough money.");
+      }
+      break;
+    case "UPGRADE":
+    case "upgrade":
+      if (playerMoney >= 7) {
+      window.alert("Upgrading your attack by 6 for 7 dollars.");
+      playerAttack = playerAttack + 6;
+      playerMoney = playerMoney - 7;
+      console.log("You now have " + playerMoney + " dollars and " + playerAttack + " attack.");
+      }
+      else {
+        window.alert("You don't have enough money.");
+      }
+      break;
+    case "LEAVE":
+    case "leave":
+      window.alert("Leaving the store.");
+      break;
+
+    default:
+      window.alert("You did not pick a valid option. Try again.");
+      shop();
+      break;
   }
 
 };
